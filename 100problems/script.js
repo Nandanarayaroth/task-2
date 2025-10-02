@@ -42,31 +42,28 @@ let classObj = {
 
 // #1
 function nameOfA (obj) {
-    console.log(`Class name: ${obj.name}`)
+    return(`Class name: ${obj.name}`)
 }
-// nameOfA(classObj)
+console.log( nameOfA(classObj))
 
 // #2
 function nameOfTeacher() {
-    console.log(`Name of the teacher: ${classObj.teacherName}`)
+    // const name = nameOfA()
+    return(`Name of the teacher: ${classObj.teacherName}`)
 }
-// nameOfTeacher()
+console.log(nameOfTeacher())
 
 // #3
 function nameOfStudents(obj){
-    obj.students.map(student => {
-        console.log(student.name)
-    })
+    return obj.students.map(student => (student.name))
 }
-// nameOfStudents(classObj)
+console.log("names are" ,nameOfStudents(classObj))
 
 // #4
 function idOfStudent() {
-    classObj.students.map(student => {
-        console.log(student.id)
-    })
+   return classObj.students.map(student => console.log(student.id))
 }
-// idOfStudent()
+idOfStudent()
 
 // #5
 function subOfStudent(std){
@@ -112,9 +109,9 @@ function totalOfStudent(std) {
     let name = markOfStudent(std)
     console.log(name)
     let sum = name.reduce((acc, curr) => acc + curr, 0)
-    console.log(sum)
+    console.log("pg8",sum)
 }
-// totalOfStudent("Binu")
+totalOfStudent("Binu")
 
 // #9
 function subMark(sub) {
@@ -165,7 +162,122 @@ function topperOfSubject(sub) {
         }
     })
     if(topper) {
-        console.log(`Top student in ${sub} : ${topper}`)
+        console.log(`Top student in ${sub} : ${topper} ${maxScore}`)
     }
 }
 topperOfSubject("Computer")
+
+// 12
+function lowerofSubject(sub) {
+    let lower 
+    let minScore = 100
+
+    classObj.students.forEach(student => {
+        let markObj = student.marks.find(mark => mark.subject === sub)
+
+        if(markObj && markObj.mark < minScore) {
+            minScore = markObj.mark
+            lower = student.name
+        }
+    })
+    if(lower) {
+        console.log(`Lowest student in ${sub} : ${lower} ${minScore}`)
+    }
+}
+lowerofSubject("Computer")
+
+// 13
+function totalTopper() {
+    let topper
+    let highestScore = 0
+
+    classObj.students.forEach(student => {
+        let total = student.marks.reduce((sum, curr) => sum + curr.mark, 0)
+       
+
+        if(total>highestScore){
+            highestScore = total
+            topper = student.name
+        }
+    })
+    console.log(`Topper of the year ${topper} with ${highestScore} scores`)
+}
+totalTopper()
+
+// 14
+function lowerOftheYr() {
+    let lower
+    let lowerScore = Infinity
+
+    classObj.students.forEach(student => {
+        let total = student.marks.reduce((sum, curr) => sum + curr.mark, 0)
+
+        if(total < lowerScore) {
+            lowerScore = total
+            lower = student.name
+        }
+
+    })
+    console.log(`Lowest score of the year ${lowerScore} ${lower}`)
+}
+lowerOftheYr()
+
+// 15
+function AvgofSub(){
+    let subjects = {} 
+
+   classObj.students.forEach(student => {
+        student.marks.forEach(({subject, mark}) => {
+            if(!subjects[subject]) {
+                subjects[subject] = {total: 0, count: 0}
+            }
+            subjects[subject].total += mark
+            subjects[subject].count += 1
+        })
+   })
+   
+   let topSubject = ""
+   let highestAvg = -1
+
+   for(let subject in subjects) {
+    let avg = subjects[subject].total / subjects[subject].count
+    if(avg > highestAvg) {
+        highestAvg = avg
+        topSubject = subject
+    }
+   }
+   console.log(`Subject with highest average: ${topSubject}, Average: ${highestAvg.toFixed(2)}`)
+
+}
+AvgofSub()
+
+// 16
+// function lowerOfAvgSub() {
+//     let subjects = {}
+
+//     classObj.students.forEach(student => {
+//         student.marks.forEach(({subject, mark}) => {
+//             if(!subjects[subject]) {
+//                 subject[subject] = {total:0, count:0}
+//             }
+//             subjects[subject].total += mark
+//             subjects[subject].count += 1
+//         })
+//     })
+
+//     let topSubject = ""
+//     let highestAvg = -1
+
+//     for(let subject in subjects) {
+//         let avg = subjects[subject].total / subjects[subjects].count
+//         if(avg > highestAvg) {
+//             highestAvg = avg
+//             topSubject = subject
+//         }
+//     }
+//     console.log(`Subject with highest average: ${topSubject}, Average: ${highestAvg.toFixed(2)}`)
+// }
+// lowerOfAvgSub()
+
+
+
